@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+.App H1{
+  margin-block:1.5rem;
+}
+
+.App p{
+  margin-block:0;
+  margin-block-end:1.25rem;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -15,7 +24,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,6 +35,56 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.App-form{
+  margin-bottom:20px;
+  flex:column;
+}
+
+.App-form label{  
+ margin-block-end:10px;
+ display:flex;
+}
+
+.App-form label input{
+  margin-inline-start:10px;
+}
+
+.App-form input[type="submit"], .App-btn{
+  background-color:#ae3a08;
+  color:white;
+  border:none;
+  padding-block:10px;
+  padding-inline:30px;
+  cursor:pointer;
+}
+
+.App-form input[type="submit"]:hover, .App-btn:hover{
+  background-color:white;
+  color:#ae3a08;
+  transition:all 1s;
+}
+
+.App Main > section{
+  padding-block:1rem;
+}
+
+.App Main > section:nth-of-type(2n){
+  background-color:#61dafb;
+}
+
+.App .clock-h{
+  color:#ae3a08
+}
+
+.App ul{
+  padding-inline:0;
+  list-style:none;
+}
+
+.App ul>li{
+
 }
 
 @keyframes App-logo-spin {
