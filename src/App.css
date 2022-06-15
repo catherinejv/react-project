@@ -2,8 +2,24 @@
   text-align: center;
 }
 
+.App H1, .App H2 , .App H3, .App h4{
+  margin-block:0;
+}
+
 .App H1{
-  margin-block:1.5rem;
+  margin-block-end:1.5rem;
+}
+
+.App H2{
+  margin-block-end:1.2rem;
+}
+
+.App H3{
+  margin-block-end:1rem;
+}
+
+.App H4{
+  margin-block-end:0.8rem;
 }
 
 .App p{
@@ -77,3 +93,27 @@
   list-style:none;
 }
 
+.Temperature fieldset{
+  inline-size:clamp(360px, 80%, 500px) ;
+  margin:20px;
+}
+@media screen and (min-width:400px) {
+  .Temperature fieldset{
+    margin:auto;
+  }
+}
+
+.Temperature fieldset:not(last-of-type){
+  margin-block-end:10px;
+}
+
+.Temperature fieldset > p{
+  margin-block-end:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.Temperature fieldset > p :not(last-of-type){
+  margin-inline-end:0.2rem;
+}

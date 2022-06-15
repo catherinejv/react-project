@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 let taskList = [
   {id : 1, task : "Design" },
@@ -264,6 +264,100 @@ const profile = {
   }
 }
 
+const scales = {
+  c: {name: 'Celsius', symbol: '°C'},
+  f: {name: 'Fahrenheit', symbol: '°F'}
+}
+
+function toCelsius(fahrenheit) {
+  return (fahrenheit - 32) * 5 / 9;
+}
+
+function toFahrenheit(celsius) {
+  return (celsius * 9 / 5) + 32;
+}
+
+function tryConvert(temperature, convert) {
+  const input = parseFloat(temperature);
+  if (Number.isNaN(input)) {
+    return '';
+  }
+  const output = convert(input);
+  const rounded = Math.round(output * 1000) / 1000;
+  return rounded.toString();
+}
+
+function TemperatureInput(props){
+
+  const scale = props.scale;
+
+  //const [temperature, setTemperature] = useState('');
+
+  const temperature = props.temperature;
+
+
+  const handleChange = (value) =>{
+    props.onTemperatureChange(value);
+    //setTemperature(value)
+  }
+
+  return(
+    <fieldset>
+      <legend>Saissez la température en {scales[scale].name} </legend>
+      <p>
+        <input value = {temperature} onChange = { (evt) => handleChange(evt)}></input>
+        <span> {scales[scale].symbol} </span>
+       </p>
+    </fieldset>
+  )
+}
+
+function Calculator(props){
+
+  const initialValues = {                   
+    temperature: '',
+    scale: 'c'
+    };
+
+  const [values, setValues] = useState(initialValues); 
+
+  //Pour appeler si à la place du callBack dans setState au besoin
+  /*useEffect(()=>{
+    console.log('test',values)
+  })*/
+
+  //Si on veut changer seulement des propriétés spécifiques du state
+  /*const handleChange = (e) => {                
+    setValues({
+      ...values,                                // spreading the unchanged values
+      [e.name]: e.value,          // changing the state of *changed value*
+    });
+  };*/
+
+  const handleCelsiusChange = (e) => {
+    setValues({temperature: e.target.value, scale:"c"})
+  }
+
+  const  handleFahrenheitChange = (e) => {
+    setValues({temperature: e.target.value, scale:"f"})
+  }
+
+  const celcius = values['scale'] === "f" ? tryConvert(values['temperature'], toCelsius): values['temperature'];
+  const fahrenheit = values['scale'] === "c" ? tryConvert(values['temperature'], toFahrenheit): values['temperature'];
+
+  return(
+    
+    <section className="Temperature">
+      <hgroup>
+        <h3>Convertisseur de température </h3> 
+        <h4> Échanges de données entre composants fonctionnels</h4>
+      </hgroup>
+      <TemperatureInput scale = "c" temperature = {celcius} onTemperatureChange = {(e)=>handleCelsiusChange(e)}/>
+      <TemperatureInput scale = "f" temperature = {fahrenheit} onTemperatureChange = {(e)=>handleFahrenheitChange(e)}/>
+    </section>
+  )
+}
+
 
 function App() {
   return (
@@ -273,6 +367,7 @@ function App() {
         <UserProfile  user={profile.user} avatar = {profile.avatar}/>
         <FlashControl title="FlashToggle"/>
         <List list={taskList}/>
+        <Calculator/>
         <Clock/>
       </main>
     </div>
